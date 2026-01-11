@@ -8,7 +8,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     # Admin
-    path('admin/', admin.site.admin),
+    path('admin/', admin.site.urls),
     
     # API endpoints (to be created in respective apps)
     # path('api/', include('api.urls')),

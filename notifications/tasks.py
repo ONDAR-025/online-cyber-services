@@ -89,7 +89,7 @@ def send_pending_notifications(self):
             
             if notification.can_retry():
                 notification.status = 'failed'
-                notification.next_retry_at = timezone.now() + timezone.timedelta(minutes=15 * notification.retry_count)
+                notification.next_retry_at = timezone.now() + timedelta(minutes=15 * notification.retry_count)
             else:
                 notification.status = 'failed'
             
