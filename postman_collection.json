@@ -1,0 +1,347 @@
+{
+  "info": {
+    "name": "Kenya LMS API",
+    "description": "API collection for Kenya-First Learning Management System with M-Pesa and Airtel Money payments",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"testuser\",\n  \"password\": \"testpass123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Courses",
+      "item": [
+        {
+          "name": "List Courses",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/courses",
+              "host": ["{{base_url}}"],
+              "path": ["api", "courses"]
+            }
+          }
+        },
+        {
+          "name": "Get Course Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/courses/{{course_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "courses", "{{course_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Enroll in Course",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"course_id\": \"{{course_id}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/enrollments",
+              "host": ["{{base_url}}"],
+              "path": ["api", "enrollments"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payments",
+      "item": [
+        {
+          "name": "M-Pesa STK Push",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"order_id\": \"{{order_id}}\",\n  \"phone_number\": \"254712345678\",\n  \"amount\": 1000\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/payments/mpesa/stk-push",
+              "host": ["{{base_url}}"],
+              "path": ["api", "payments", "mpesa", "stk-push"]
+            }
+          }
+        },
+        {
+          "name": "Airtel Money Collect",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"order_id\": \"{{order_id}}\",\n  \"phone_number\": \"254712345678\",\n  \"amount\": 1000\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/payments/airtel/collect",
+              "host": ["{{base_url}}"],
+              "path": ["api", "payments", "airtel", "collect"]
+            }
+          }
+        },
+        {
+          "name": "Create Payment Intent",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"order_id\": \"{{order_id}}\",\n  \"provider\": \"mpesa\",\n  \"payment_method_id\": \"{{payment_method_id}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/payments/intents",
+              "host": ["{{base_url}}"],
+              "path": ["api", "payments", "intents"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Webhooks",
+      "item": [
+        {
+          "name": "M-Pesa Callback (Test)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Body\": {\n    \"stkCallback\": {\n      \"MerchantRequestID\": \"29115-34620561-1\",\n      \"CheckoutRequestID\": \"ws_CO_191220191020363925\",\n      \"ResultCode\": 0,\n      \"ResultDesc\": \"The service request is processed successfully.\",\n      \"CallbackMetadata\": {\n        \"Item\": [\n          {\"Name\": \"Amount\", \"Value\": 1000},\n          {\"Name\": \"MpesaReceiptNumber\", \"Value\": \"NLJ7RT61SV\"},\n          {\"Name\": \"TransactionDate\", \"Value\": 20191219102115},\n          {\"Name\": \"PhoneNumber\", \"Value\": 254708374149}\n        ]\n      }\n    }\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/webhooks/mpesa",
+              "host": ["{{base_url}}"],
+              "path": ["webhooks", "mpesa"]
+            }
+          }
+        },
+        {
+          "name": "Airtel Callback (Test)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transaction\": {\n    \"id\": \"test-transaction-id\",\n    \"airtel_money_id\": \"AM123456789\",\n    \"status\": \"TS\",\n    \"amount\": 1000,\n    \"currency\": \"KES\"\n  },\n  \"subscriber\": {\n    \"msisdn\": \"0712345678\",\n    \"country\": \"KE\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/webhooks/airtel",
+              "host": ["{{base_url}}"],
+              "path": ["webhooks", "airtel"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Subscriptions",
+      "item": [
+        {
+          "name": "Create Subscription",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"product_id\": \"{{product_id}}\",\n  \"price_id\": \"{{price_id}}\",\n  \"payment_method_id\": \"{{payment_method_id}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/subscriptions",
+              "host": ["{{base_url}}"],
+              "path": ["api", "subscriptions"]
+            }
+          }
+        },
+        {
+          "name": "Get Subscription",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/subscriptions/{{subscription_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "subscriptions", "{{subscription_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Renew Subscription",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/subscriptions/{{subscription_id}}/renew",
+              "host": ["{{base_url}}"],
+              "path": ["api", "subscriptions", "{{subscription_id}}", "renew"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Commerce",
+      "item": [
+        {
+          "name": "Create Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"product_id\": \"{{product_id}}\",\n      \"price_id\": \"{{price_id}}\",\n      \"quantity\": 1\n    }\n  ],\n  \"coupon_code\": \"DISCOUNT10\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/commerce/orders",
+              "host": ["{{base_url}}"],
+              "path": ["api", "commerce", "orders"]
+            }
+          }
+        },
+        {
+          "name": "Get Invoice",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/invoices/{{invoice_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "invoices", "{{invoice_id}}"]
+            }
+          }
+        },
+        {
+          "name": "Get Receipt",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/receipts/{{receipt_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "receipts", "{{receipt_id}}"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "course_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "order_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "payment_method_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "product_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "price_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "subscription_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "invoice_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "receipt_id",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}
