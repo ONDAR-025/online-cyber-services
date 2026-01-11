@@ -269,7 +269,7 @@ CURRENCY_DECIMAL_PLACES = 2
 
 # Subscription Settings
 SUBSCRIPTION_GRACE_PERIOD_DAYS = int(os.getenv('SUBSCRIPTION_GRACE_PERIOD_DAYS', '7'))
-DUNNING_SCHEDULE = [0, 1, 3]  # Days after failed payment to retry
+DUNNING_SCHEDULE = [0, 1, 3, 7]  # Days after failed payment to retry (T+0, +1, +3, +7)
 
 # Notification Settings
 NOTIFICATION_QUIET_HOURS_START = 22  # 10 PM

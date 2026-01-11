@@ -4,7 +4,7 @@ Notification-related Celery tasks.
 from celery import shared_task
 from django.utils import timezone
 from django.conf import settings
-from datetime import time
+from datetime import time, timedelta
 import logging
 
 logger = logging.getLogger('notifications')

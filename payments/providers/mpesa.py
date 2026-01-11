@@ -317,7 +317,7 @@ class MPesaProvider:
             'TransactionID': transaction_id,
             'Amount': int(amount),
             'ReceiverParty': self.shortcode,
-            'RecieverIdentifierType': '11',  # 11 for shortcode
+            'ReceiverIdentifierType': '11',  # 11 for shortcode
             'ResultURL': settings.MPESA_CALLBACK_URL,
             'QueueTimeOutURL': settings.MPESA_CALLBACK_URL,
             'Remarks': remarks,

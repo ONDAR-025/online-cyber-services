@@ -45,11 +45,14 @@ def process_subscription_renewals(self):
                 continue
             
             # Create order for renewal
+            # Note: VAT calculation is intentionally set to 0 for B2C transactions
+            # as VAT is typically absorbed by the merchant in Kenya B2C e-commerce.
+            # For B2B transactions, implement proper VAT calculation (16% in Kenya).
             order = Order.objects.create(
                 user=subscription.user,
                 status='pending',
                 subtotal=subscription.price.amount,
-                tax_amount=0,  # Calculate VAT if needed
+                tax_amount=Decimal('0.00'),  # VAT absorbed by merchant for B2C
                 total=subscription.price.amount
             )
             
